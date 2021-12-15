@@ -67,57 +67,98 @@ delete=delete -->
        </tr>
        <tr>
            <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
-           <td>/movies/:movieTitle</td>
+           <td>/movies/:Title</td>
            <td>GET</td>
            <td>NONE</td>
-           <td>A JSON object holding data about a single movie </td>
+           <td>A JSON object holding data about a single movie (EXAMPLE):
+             {
+             Title: "House of Gucci",
+
+             Description: "When Patrizia Reggiani, an outsider from humble beginnings, marries into the Gucci family, her unbridled ambition begins to unravel their legacy and triggers a reckless spiral of betrayal, decadence, revenge, and ultimately...murder.",
+
+             Genre: {
+             	Name: "Crime",
+             	Description: "Crime films, in the broadest sense, are a cinematic genre inspired by and analogous to the crime fiction literary genre. Films of this genre generally involve various aspects of crime and its detection. Stylistically, the genre may overlap and combine with many other genres, such as drama or gangster film, but also include comedy, and, in turn, is divided into many sub-genres, such as mystery, suspense or noir."
+             },
+
+             Director: {
+             	Name: "Ridley Scott",
+              	Bio: "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham). His father was an officer in the Royal Engineers and the family followed him as his career posted him throughout the United Kingdom and Europe before they eventually returned to Teesside. Scott wanted to join the Royal Army (his elder brother Frank had already joined the Merchant Navy) but his father encouraged him to develop his artistic talents instead and so he went to West Hartlepool College of Art and then London's Royal College of Art where he helped found the film department.",
+             	Birthday: "November 30, 1937"
+             },
+
+             IMDB: "7,0" ,
+
+             Imagepath: "https://www.imdb.com/title/tt11214590/mediaviewer/rm1248389377/?ref_=tt_ov_i",
+             Featured: true
+             }
+
+           </td>
+
        </tr>
 
        <tr>
            <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
-           <td>/genres/:genreName</td>
+           <td>/genres/:Name</td>
            <td>GET</td>
            <td>NONE</td>
-           <td>A JSON object holding data about a moviegenre </td>
+           <td>A JSON object holding data about a moviegenre (EXAMPLE):
+            {
+             Name: "Drama",
+             Description: "Drama film is a genre that relies on the emotional and relational development of realistic characters. While Drama film relies heavily on this kind of development, dramatic themes play a large role in the plot as well. Often, these dramatic themes are taken from intense, real life issues. Whether heroes or heroines are facing a conflict from the outside or a conflict within themselves, Drama film aims to tell an honest story of human struggles."
+             }
+
+
+
+            </td>
        </tr>
        <tr>
            <td>Return data about a director (bio, birth year, death year) by name</td>
-           <td>/directors/:directorName</td>
+           <td>/directors/:Name</td>
            <td>GET</td>
            <td>NONE</td>
-           <td>A JSON object holding data about a director</td>
+           <td>A JSON object holding data about a director (EXAMPLE):
+             {
+             Name: "Jane Campion",
+             Bio: "Jane Campion was born in Wellington, New Zealand, and now lives in Sydney, New South Wales, Australia. Having graduated with a BA in Anthropology from Victoria University of Wellington in 1975, and a BA, with a painting major, at Sydney College of the Arts in 1979, she began filmmaking in the early 1980s, attending the Australian School of Film and Television.",
+             Birthday: "April 30, 1954"
+             }
+
+
+
+           </td>
        </tr>
        <tr>
            <td>Allow new users to register</td>
-           <td>/user/register</td>
+           <td>/registration</td>
            <td>POST</td>
            <td>NONE</td>
            <td>a text message indicating wether the user was succesfully registered</td>
        </tr>
        <tr>
            <td>Allow users to update their user info (username)</td>
-           <td>/user/:username</td>
+           <td>/users/:username</td>
            <td>PUT</td>
            <td>NONE</td>
            <td>a text message indicating wether the userinfo was succesfully updated</td>
        </tr>
        <tr>
            <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
-           <td>user/favorites/:movieTitle</td>
+           <td>/users/:Username/movies/:MovieID</td>
            <td>PUT</td>
            <td>JSON object holding data about the movie to add</td>
            <td> a text message indicating wether the movie has been added to the list of favorites </td>
        </tr>
        <tr>
            <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
-           <td>user/favorites/:movieTitle</td>
+           <td>/users/:Username/movies/:MovieID</td>
            <td>DELETE</td>
            <td>NONE</td>
            <td> a text message indicating wether the movie was removed from their list of favorites </td>
        </tr>
        <tr>
            <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
-           <td>user/:username</td>
+           <td>/users/:Username</td>
            <td>DELETE</td>
            <td>NONE</td>
            <td>a text message indicating wether the user was succesfully deregistered</td>
