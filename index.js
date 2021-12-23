@@ -12,16 +12,28 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+//CORS integration to extend HTTP requests by giving them new headers that include their domain
+// const cors = require('cors');
+// let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+//
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if(!origin) return callback(null, true);
+//     if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+//       let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+//       return callback(new Error(message ), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
+
 
 // allow Mongoose to connect to MongoDB database so it can perform CRUD operations
 mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
-
 const app = express();
-
-
 
 
 app.use(bodyParser.json());
@@ -29,6 +41,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //import "auth.js" file
 let auth = require('./auth')(app);
+
+//server side validation
+const { check, validationResult } = require('express-validator');
+
+
 
 //require passport module and import "passport.js" file
 const passport = require('passport');
@@ -115,7 +132,27 @@ app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (r
 
 //Allow new users to register
 
-app.post('/registration', (req,res) => {
+app.post('/registration',
+[
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Password', 'Password must be at least 8 characters long').isLength({min: 8}),
+    check('email', 'Email does not appear to be valid').isEmail()
+],
+(req,res) => {
+
+  // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+
+let hashedPassword = Users.hashPassword(req.body.Password);
+
+
   Users.findOne({ Username: req.body.Username })
   .then((user) => {
     if (user) {
@@ -124,7 +161,7 @@ app.post('/registration', (req,res) => {
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
@@ -176,11 +213,29 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 
 // Update a user's info, by username
 
-app.put('/users/:Username', (req,res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+[
+  check('Username', 'Username is required, minimum of 5 characters').isLength({min: 5}).optional(),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric().optional(),
+  check('Password', 'Password is required').not().isEmpty().optional(),
+  check('Password', 'Password must be 8 characters long').isLength({min: 8}).optional(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+],
+
+(req,res) => {
+
+  // check validation result
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+    return res.status(422).json({errors: validationErrors.array()});
+    }
+      // hash the updated password
+    let hashedPassword = Users.hashPassword(req.body.Password);
+
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
@@ -276,6 +331,9 @@ app.get('/documentation', (req, res) => {
 
 
 // listen for requests
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080.');
-});
+
+
+    const port = process.env.PORT || 8080;
+    app.listen(port, '0.0.0.0',() => {
+     console.log('Listening on Port ' + port);
+    });
