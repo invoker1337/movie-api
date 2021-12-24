@@ -1,0 +1,8 @@
+{"_id":{"$oid":"61af68cebaa4bbd3fdf935ac"},"Username":"peter jonson","Password":"12344","Email":"peterj@gmail.com","Birthday":"10.11.2000","FavoriteMovies":[]}
+{"_id":{"$oid":"61af6dffbaa4bbd3fdf935b6"},"Username":"Britney James","Password":"bj693","Email":"bjj59@gmail.com","Birthday":"23.04.2001","FavoriteMovies":[]}
+{"_id":{"$oid":"61af6e13baa4bbd3fdf935b8"},"Username":"patrick bate","Password":"pbateyeah242","Email":"patrickb44@gmail.com","Birthday":"01.04.1993","FavoriteMovies":[{"$oid":"61b211a9711da76ba5277535"}]}
+{"_id":{"$oid":"61af6e6fbaa4bbd3fdf935b9"},"Username":"olivia marshall","Password":"olima244th442","Email":"olivmarsh424@gmail.com","Birthday":"19.04.1953","FavoriteMovies":[]}
+{"_id":{"$oid":"61b9c7693c07e7360fd15aec"},"Username":"test123","Password":"fa52fww","Email":"dadad@da.com","Birthday":{"$date":{"$numberLong":"-536202000000"}},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"61bb0b45daa2480ed420ab60"},"Username":"NewAccountToTestSecurityAuth","Password":"fadad","Email":"dsecuritys@dada.com","Birthday":{"$date":"1988-01-03T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"61bb1056daa2480ed420ab68"},"Username":"test99","Password":"test99","Email":"test99@gmail.com","Birthday":{"$date":"1989-12-31T23:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"61bb174aa2a9456dc6cad773"},"Username":"test100","Password":"test100","Email":"test99@gmail.com","Birthday":{"$date":"1989-12-31T23:00:00Z"},"FavoriteMovies":[],"__v":0}
