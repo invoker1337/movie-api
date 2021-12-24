@@ -17,8 +17,8 @@ const Users = Models.User;
 //CORS integration to extend HTTP requests by giving them new headers that include their domain
 
 // let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
-const cors = require('cors');
-app.use(cors());
+// const cors = require('cors');
+// app.use(cors());
 // app.use(cors({
 //   origin: (origin, callback) => {
 //     if(!origin) return callback(null, true);
