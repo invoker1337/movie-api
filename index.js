@@ -28,9 +28,10 @@ const Users = Models.User;
 // }));
 
 
-// allow Mongoose to connect to MongoDB database so it can perform CRUD operations
-mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
+// allow Mongoose to connect to MongoDB database so it can perform CRUD operations:
+// mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const app = express();
