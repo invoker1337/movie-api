@@ -11,7 +11,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
+const Genres = Models.Genres;
+const Directors = Models.Directors;
 
 
 //CORS integration to extend HTTP requests by giving them new headers that include their domain
@@ -81,8 +82,20 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req,res) =
       });
       });
 
+      //Return a list of ALL directors to the user
+    app.get('/directors', passport.authenticate('jwt', { session: false }), (req,res) => {
+          Directors.find()
+            .then(function (directors) {
+              res.status(201).json(directors);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(500).send('Error: ' + err);
+            });
+            });
 
-//Return a list of ALL genres to the user ***** GENRES not defined yet!
+
+//Return a list of ALL genres to the user
 app.get('/genres', passport.authenticate('jwt', { session: false }), (req,res) => {
     Genres.find()
       .then(function (genres) {
@@ -93,6 +106,11 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), (req,res) =
         res.status(500).send('Error: ' + err);
       });
       });
+
+
+
+
+
 
 
 //Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by movieTitle to the user
