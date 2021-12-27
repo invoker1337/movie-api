@@ -161,23 +161,6 @@ app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (r
 
 
 
-
-
-//Return a list of ALL directors to the user
-app.get('/directors', passport.authenticate('jwt', { session: false }), (req,res) => {
-    Directors.find()
-      .then(function (directors) {
-        res.status(201).json(directors);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
-      });
-
-
-
-
 //Allow new users to register
 
 app.post('/registration',

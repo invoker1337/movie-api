@@ -65,6 +65,31 @@ delete=delete -->
            <td>A JSON object holding data about all the movies</td>
 
        </tr>
+
+       <tr>
+           <td>Return a list of ALL genres to the user</td>
+           <td>/genres</td>
+           <td>GET</td>
+           <td>NONE</td>
+           <td>A JSON object holding data about all the movies</td>
+
+       </tr>
+
+       <tr>
+           <td>Return a list of ALL directors to the user</td>
+           <td>/directors</td>
+           <td>GET</td>
+           <td>NONE</td>
+           <td>A JSON object holding data about all the movies</td>
+
+       </tr>
+
+
+
+
+
+
+
        <tr>
            <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
            <td>/movies/:Title</td>
@@ -98,7 +123,7 @@ delete=delete -->
        </tr>
 
        <tr>
-           <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+           <td>Return data about a single genre (description) by name/title (e.g., “Thriller”)</td>
            <td>/genres/:Name</td>
            <td>GET</td>
            <td>NONE</td>
@@ -113,7 +138,7 @@ delete=delete -->
             </td>
        </tr>
        <tr>
-           <td>Return data about a director (bio, birth year, death year) by name</td>
+           <td>Return data about a single director (bio, birth year, death year) by name</td>
            <td>/directors/:Name</td>
            <td>GET</td>
            <td>NONE</td>
