@@ -84,8 +84,15 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req,res) =
 
 //Return a list of ALL genres to the user ***** GENRES not defined yet!
 app.get('/genres', passport.authenticate('jwt', { session: false }), (req,res) => {
-  Genres.find().then(genres => res.json(genres));
-});
+    Genres.find()
+      .then(function (genres) {
+        res.status(201).json(genres);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+      });
 
 
 //Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by movieTitle to the user
@@ -119,8 +126,8 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,
 
 app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req,res) => {
   Directors.findOne ( {Name: req.params.name} )
-  .then((Directors) => {
-    res.status(201).json(Directors);
+  .then((director) => {
+    res.status(201).json(director);
 
 })
 .catch((err) => {
@@ -130,6 +137,17 @@ app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (r
 });
 
 
+//Return a list of ALL directors to the user
+app.get('/directors', passport.authenticate('jwt', { session: false }), (req,res) => {
+    Directors.find()
+      .then(function (directors) {
+        res.status(201).json(directors);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+      });
 
 
 
