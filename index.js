@@ -139,8 +139,7 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,
         console.error(error);
         res.status(500).send("Error: " + error);
       });
-  }
-);
+  });
 
 
 
@@ -149,16 +148,19 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,
 //Return data about a director (bio, birth year, death year) by name
 
 app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req,res) => {
-  Directors.findOne ( {Name: req.params.name} )
-  .then((director) => {
-    res.status(201).json(director);
+  Directors.findOne({ Name: req.params.Name })
+      .then(director => {
+        res.json(director);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  });
 
-})
-.catch((err) => {
-  console.error(err);
-  res.status(500).send('Error: ' + err);
-});
-});
+
+
+
 
 
 //Return a list of ALL directors to the user
