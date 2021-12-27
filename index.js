@@ -118,7 +118,7 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,
 //Return data about a director (bio, birth year, death year) by name
 
 app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req,res) => {
-  Movies.find ( {'Director.Name': req.params.Name} )
+  Directors.find ( {'Director.Name': req.params.Name} )
   .then((Directors) => {
     res.status(201).json(Directors);
 
