@@ -1,9 +1,41 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const uuid = require('uuid');
+const morgan = require('morgan');
 
-bodyParser = require('body-parser');
 
-uuid = require('uuid');
-morgan = require('morgan');
+const app = express();
+
+//middleware functions
+app.use (morgan('common'));  //log all request on terminal
+app.use(express.static('public')); // serve all static file in public folder
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+//require passport module and import "passport.js" file
+const passport = require('passport');
+require('./passport');
+app.use(passport.initialize());
+const cors = require('cors');
+//server side validation
+const { check, validationResult } = require('express-validator');
+app.use(cors());
+
+
+
+
+
+
+
+//import "auth.js" file
+let auth = require('./auth')(app);
+
+const cors = require("cors");
+app.use(cors());
+
+
 
 //integrating mongoose with REST API
 const mongoose = require('mongoose');
@@ -38,27 +70,9 @@ const Directors = Models.Director;
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-const app = express();
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-//import "auth.js" file
-let auth = require('./auth')(app);
-
-//server side validation
-const { check, validationResult } = require('express-validator');
 
 
 
-//require passport module and import "passport.js" file
-const passport = require('passport');
-require('./passport');
-
-//middleware functions
-app.use (morgan('common'));  //log all request on terminal
-app.use(express.static('public')); // serve all static file in public folder
 
 app.use((err, req, res, next) => {  //error handling: This code would execute every time an error occurs in your code (that hasn’t already been handled elsewhere)
   console.error(err.stack);
@@ -352,7 +366,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 
 // GET requests
 app.get('/', (req, res) => {
-  res.send('This is a default textual response of my choosing hehe');
+  res.send('Welcome to the kinda best Movie Database');
 });
 
 
