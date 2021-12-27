@@ -106,7 +106,7 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req
 //Return data about a genre (description) by name/title (e.g., “Thriller”)
 
 app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,res) => {
-  Movies.find ( {'Genre.Name': req.params.Name} )
+  Genres.findOne ( {Name: req.params.name} )
   .then((genreName) => res.json(genreName));
 
 });
@@ -118,7 +118,7 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,
 //Return data about a director (bio, birth year, death year) by name
 
 app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req,res) => {
-  Directors.find ( {'Director.Name': req.params.Name} )
+  Directors.findOne ( {Name: req.params.name} )
   .then((Directors) => {
     res.status(201).json(Directors);
 
