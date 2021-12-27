@@ -11,8 +11,8 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genres;
-const Directors = Models.Directors;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 
 //CORS integration to extend HTTP requests by giving them new headers that include their domain
