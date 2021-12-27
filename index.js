@@ -131,10 +131,16 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req
 //Return data about a genre (description) by name/title (e.g., “Thriller”)
 
 app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req,res) => {
-  Genres.findOne ( {Name: req.params.name} )
-  .then((genreName) => res.json(genreName));
-
-});
+  Genres.findOne({ Name: req.params.Name })
+      .then(genre => {
+        res.json(genre);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 
 
