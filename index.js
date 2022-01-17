@@ -84,7 +84,9 @@ app.use((err, req, res, next) => {  //error handling: This code would execute ev
 
 
 //Return a list of ALL movies to the user
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req,res) => {
+app.get('/movies', 
+//REMOVED AUTHENTICATION MIDDLEWARE to temporarily give react access to database //passport.authenticate('jwt', { session: false }),
+(req,res) => {
     Movies.find()
       .then(function (movies) {
         res.status(201).json(movies);
