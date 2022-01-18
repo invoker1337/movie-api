@@ -49,7 +49,7 @@ const Directors = Models.Director;
 //CORS integration to extend HTTP requests by giving them new headers that include their domain
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'https://invoker1337.herokuapp.com'];
+let allowedOrigins = ['http://localhost:8080', 'https://invoker1337.herokuapp.com', 'http://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -84,18 +84,18 @@ app.use((err, req, res, next) => {  //error handling: This code would execute ev
 
 
 //Return a list of ALL movies to the user
-app.get('/movies', 
-//REMOVED AUTHENTICATION MIDDLEWARE to temporarily give react access to database //passport.authenticate('jwt', { session: false }),
-(req,res) => {
-    Movies.find()
-      .then(function (movies) {
-        res.status(201).json(movies);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
-      });
+//REMOVED AUTHENTICATION MIDDLEWARE to temporarily give react access to database
+
+app.get("/movies", function (req, res) {
+  Movies.find()
+    .then(function (movies) {
+      res.status(201).json(movies);
+    })
+    .catch(function (error) {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
 
       //Return a list of ALL directors to the user
     app.get('/directors', passport.authenticate('jwt', { session: false }), (req,res) => {
